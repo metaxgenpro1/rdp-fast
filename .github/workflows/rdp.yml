@@ -1,0 +1,22 @@
+name: Ahmedgen
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-rdp:
+    runs-on: windows-2022
+    timeout-minutes: 360
+    steps:
+    - name: Create RDP user
+      run: |
+        net user ahmedgamer AhmedStrong2025 /add
+        net localgroup administrators ahmedgamer /add
+        sc config Audiosrv start= auto
+        net start Audiosrv
+    - name: Download playit.gg tunnel
+      run: curl -L -o playit.exe https://github.com/openscript-labs/playit-cli/releases/latest/download/playit.exe
+    - name: Start tunnel
+      run: start playit.exe
+    - name: Ready
+      run: echo RDP ready. Username: ahmedgamer, Password: AhmedStrong2025
